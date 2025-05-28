@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VentixeAccountManagement.Data.Entities;
@@ -47,5 +48,12 @@ public class UserController(UserManager<ApplicationUser> userManager, SignInMana
         {
             token
         });
+    }
+
+    [Authorize]
+    [HttpPost("authenticate")]
+    public IActionResult AuthenticateToken()
+    {
+        return Ok(new { Message = "Token is valid." });
     }
 }
