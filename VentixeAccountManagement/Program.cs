@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(options =>
             ClockSkew                = TimeSpan.Zero
         };
     });
-builder.Services.AddSingleton<JwtService>();
+builder.Services.AddScoped<JwtService>();
 
 builder.Services.AddCors(options =>
 {
@@ -61,7 +61,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
 
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -69,11 +68,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseCors("AllowReact");

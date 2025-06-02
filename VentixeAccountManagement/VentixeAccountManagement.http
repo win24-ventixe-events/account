@@ -1,6 +1,4 @@
 @VentixeAccountManagement_HostAddress = http://localhost:5109
 
-GET {{VentixeAccountManagement_HostAddress}}/weatherforecast/
+GET {{VentixeAccountManagement_HostAddress}}
 Accept: application/json
-
-###
