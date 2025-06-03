@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
         policy => policy
-            .AllowAnyOrigin()
+            .WithOrigins("https://lively-pebble-05bdf8603.6.azurestaticapps.nethttps://lively-pebble-05bdf8603.6.azurestaticapps.net")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -51,7 +51,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
     {
         option.Password.RequiredLength = 8;
         option.User.RequireUniqueEmail = true;
-       //option.SignIn.RequireConfirmedEmail = true;
+        option.SignIn.RequireConfirmedEmail = true;
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
