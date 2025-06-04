@@ -41,6 +41,12 @@ public class UserController(UserManager<ApplicationUser> userManager, SignInMana
             return Unauthorized(new { Message = "Invalid credentials." });
         
         var user = await userManager.FindByEmailAsync(model.Email);
+        
+        if (user == null)
+        {
+            return Unauthorized(new { Message = "User not found after successful login." });
+        }
+        
         var token = jwtService.GenerateJwt(user!);
         
         return Ok(new

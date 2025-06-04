@@ -7,7 +7,6 @@ using VentixeAccountManagement.Data.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using VentixeAccountManagement.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var jwt = builder.Configuration.GetSection("Jwt");
@@ -38,7 +37,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
         policy => policy
-            .WithOrigins("https://lively-pebble-05bdf8603.6.azurestaticapps.net")
+            .WithOrigins("http://localhost:5173", "https://lively-pebble-05bdf8603.6.azurestaticapps.net")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
@@ -67,12 +66,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.UseCors("AllowReact");
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ventixe API V1");
+});
+
+app.UseCors("AllowReact");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
