@@ -18,20 +18,13 @@ public class UserController(UserManager<ApplicationUser> userManager, SignInMana
             UserName = model.Email,
             Email = model.Email,
             DisplayName = model.DisplayName,
+            EmailConfirmed = true
         };
 
         var result = await userManager.CreateAsync(user, model.Password);
 
         if (!result.Succeeded)
             return BadRequest(result.Errors);
-
-        user.EmailConfirmed = true;
-        var update = await userManager.UpdateAsync(user);
-        
-        if (!update.Succeeded)
-        {
-            return BadRequest(update.Errors);
-        }
         
         return Ok(new { user.Id, user.Email, user.DisplayName });
     }
