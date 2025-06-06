@@ -18,6 +18,7 @@ public class UserController(UserManager<ApplicationUser> userManager, SignInMana
             UserName = model.Email,
             Email = model.Email,
             DisplayName = model.DisplayName,
+            EmailConfirmed = true
         };
 
         var result = await userManager.CreateAsync(user, model.Password);
